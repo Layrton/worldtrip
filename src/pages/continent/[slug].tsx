@@ -8,6 +8,8 @@ import { client } from '../../services/prismic'
 import * as prismicH from '@prismicio/helpers'
 import { useRouter } from 'next/router'
 import Loading from '../../components/Loading'
+import Head from 'next/head'
+import icon from '../../../public/logo.svg'
 
 export interface ContinentProps {
   continent: {
@@ -37,6 +39,10 @@ export default function Continent({ continent }: ContinentProps) {
 
   return (
     <Flex direction="column">
+      <Head>
+        <title>{continent.title} | worldtrip</title>
+        <link rel="icon" type="image/svg" href={icon.src} />
+      </Head>
       <Header />
       <ContinentBanner continent={continent} />
       <Flex direction="column" maxW="1160px" mx="auto" mb="10" px="1rem">
@@ -57,7 +63,6 @@ export const getStaticPaths = async () => {
       },
     }
   })
-  console.log(paths)
 
   return { paths, fallback: true }
 }

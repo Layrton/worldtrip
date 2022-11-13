@@ -1,11 +1,13 @@
 import { Flex, Heading } from '@chakra-ui/react'
 import { GetStaticProps } from 'next'
+import Head from 'next/head'
 import Banner from '../components/Banner'
 import Characteristics from '../components/Characteristics'
 import Header from '../components/Header'
 import Separator from '../components/Separator'
 import Slides from '../components/Slides'
 import { client } from '../services/prismic'
+import icon from '../../public/logo.svg'
 
 export interface ContinentProps {
   continents: {
@@ -19,6 +21,10 @@ export interface ContinentProps {
 export default function Home({ continents }: ContinentProps) {
   return (
     <Flex direction="column">
+      <Head>
+        <title>worldtrip</title>
+        <link rel="icon" type="image/svg" href={icon.src} />
+      </Head>
       <Header />
       <Banner />
       <Characteristics />
@@ -39,8 +45,6 @@ export default function Home({ continents }: ContinentProps) {
 
 export const getStaticProps: GetStaticProps = async () => {
   const response = await client.getAllByType('continent')
-
-  console.log(response)
 
   const continents = response.map((continent) => {
     return {
